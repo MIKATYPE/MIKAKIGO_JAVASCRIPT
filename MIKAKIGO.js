@@ -1636,8 +1636,8 @@ function convertupperlower(a,b) /* b の文字の種別をa の文字種別に�
 {
 	var char1='A';
 	var char2='a';
-	if('A'<=a&&a<='Z'&&'a'<=b&&b<='z') b=String.fromCharCode(nChar.charCodeAt(0)-char2.charCodeAt(0)+char1.charCodeAt(0)); /* aが大文字でbが小文字の場合はbを大文字に変換 */
-	else	if('a'<=a&&a<='z'&&'A'<=b&&b<='Z') b=String.fromCharCode(nChar.charCodeAt(0)-char1.charCodeAt(0)+char2.charCodeAt(0)); /* aが小文字でbが大文字の場合はbを小文字に変換 */
+	if('A'<=a&&a<='Z'&&'a'<=b&&b<='z') b=String.fromCharCode(b.charCodeAt(0)-char2.charCodeAt(0)+char1.charCodeAt(0)); /* aが大文字でbが小文字の場合はbを大文字に変換 */
+	else	if('a'<=a&&a<='z'&&'A'<=b&&b<='Z') b=String.fromCharCode(b.charCodeAt(0)-char1.charCodeAt(0)+char2.charCodeAt(0)); /* aが小文字でbが大文字の場合はbを小文字に変換 */
 	return b;
 }
 function procptrain(g,nChar) /* ポジション練習の文字入力処理 */

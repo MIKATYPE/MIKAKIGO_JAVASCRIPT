@@ -1,6 +1,7 @@
 ﻿/* **************************************************************************** */
-/* 美佳のタイプトレーナー 記号編 JAVASCRIPT版ソースコード Ver2.02.01            */
-/*                                     Copy right 今村二朗 2023/12/13           */
+/* 美佳のタイプトレーナー 記号編 JAVASCRIPT版ソースコード Ver2.02.01 2023/12/13 */
+/*                                                        Ver2.02.02 2024/1/10  */
+/*                                                Copy right 今村二朗           */
 /*                                                                              */
 /* このソースコードは 改変、転載、他ソフトの使用など自由にお使いください        */
 /*                                                                              */
@@ -51,21 +52,18 @@ MIKA_r_time= /* ランダム練習 累積練習時間 秒 */
 	MIKA_z_pos1_c2="！”＃＄％＆’（）　＝～｜"; /* キーボード最上段 シフト有り記号 表示全角文字列 */
 	MIKA_c_pos1=MIKA_a_pos1+MIKA_k_pos1_c1; /* キーボード最上段 シフト無し 文字列 */ 
 	MIKA_s_pos1=MIKA_k_pos1_c2; /* キーボード最上段 シフト有り 文字列 */
-	MIKA_a_pos2="QWERTYUIOP"; /* キーボード 上一段 シフト無し 英文字 文字列 */
 	MIKA_k_pos2_c1="@["; /* キーボード 上一段 シフト無し記号 文字列 */
 	MIKA_z_pos2_c1="＠［"; /* キーボード 上一段 シフト無し記号 全角文字列 */
 	MIKA_k_pos2_c2="`{"; /* キーボード 上一段 シフト有り記号 文字列 */
 	MIKA_z_pos2_c2="｀｛"; /* キーボード 上一段 シフト有り記号 全角文字列 */
 	MIKA_c_pos2=MIKA_a_pos2+MIKA_k_pos2_c1; /* キーボード 上一段 シフト無し 文字列 */
 	MIKA_s_pos2=MIKA_a_pos2+MIKA_k_pos2_c2; /* キーボード 上一段 シフト有り 文字列 */
-	MIKA_a_pos3="ASDFGHJKL"; /* キーボード ホームポジション 英文字 文字列 */
 	MIKA_k_pos3_c1=";:]"; /* キーボード ホームポジション シフト無し記号 文字列 */
 	MIKA_z_pos3_c1="；：］";	/* キーボード ホームポジション シフト無し記号 全角文字列 */
 	MIKA_k_pos3_c2="+*}"; /* キーボード ホームポジション シフト有り記号 文字列 */
 	MIKA_z_pos3_c2="＋＊｝"; /* キーボード ホームポジション シフト有り記号 全角文字列 */
 	MIKA_c_pos3=MIKA_a_pos3+MIKA_k_pos3_c1; /* キーボード ホームポジション シフト無し 文字列 */
 	MIKA_s_pos3=MIKA_a_pos3+MIKA_k_pos3_c2; /* キーボード ホームポジション シフト有り 文字列 */
-	MIKA_a_pos4="ZXCVBNM"; /* キーボード 下一段 英文字 文字列 */
 	MIKA_k_pos4_c1=",./＼"; /* キーボード 下一段 シフト無し記号 文字列 */
 	MIKA_k_pos4_h1=",./"; /* キーボード 下一段 シフト無し記号 練習 文字列 */
 	MIKA_z_pos4_h1="，．／"; /* キーボード 下一段 シフト無し記号 練習 全角文字字列 */ 
@@ -146,7 +144,7 @@ MIKA_key_guide_on=1; /* 定数 キーガイド表示あり */
 MIKA_key_guide_off=3; /* 定数 キーガイド表示無し */
 MIKA_type_end_flag = 0; /* 練習終了フラグ =0 ESCによる終了 =1 60文字入力による終了 */
 MIKA_shift_mode=0; /*  現在シフトモード =0 シフトなし <0 右シフト >0 左シフト 絶対値 シフト文字行番号 */
-MIKA_mes0="●● 美佳のタイプトレーナー 記号編 Ver2.02.01 ●●";
+MIKA_mes0="●● 美佳のタイプトレーナー 記号編 Ver2.02.02 ●●";
 MIKA_mes0a="●● 美佳のタイプトレーナー 記号編 ポジション練習 ●●";
 MIKA_mes0b="●● 美佳のタイプトレーナー 記号編 ランダム練習 ●●";
 MIKA_mestb="●● 美佳タイプ 記号編 ポジション練習 %s ●●";
@@ -556,7 +554,7 @@ function cslellipse(g,x1,y1,x2,y2,color) /* 指の丸みを楕円で表示 */
 function cslkeyback(g,x_pos,y_pos,color) /* ポジション練習にてエラー文字とキーガイド文字の背景を塗りつぶす */
 {
 	var dx,dy;
-	dx=8;
+	dx=10;
 	dy=7;
 	cslrectt(g,x_pos+MIKA_width_x-dx,y_pos+MIKA_width_y-dy,x_pos+2*MIKA_width_x+dx,y_pos+3*MIKA_width_y+dy,color);
 }
@@ -691,7 +689,6 @@ function pshiftfinger(g,s,flag) /* シフトキーを表示する */
 	var	x_pos0,y_pos0;
 	var	x_pos1,y_pos1;
 	var x,y,dx,dy,ddx,ddy;
-	var ss="SHIFT";
 	if(s==0) /* 左側のシフトキーを表示する場合 */
 	{
 		x=4; /* シフトキー表示行を4列目に設定 */
@@ -721,7 +718,7 @@ function pshiftfinger(g,s,flag) /* シフトキーを表示する */
 //		pDC->SetBkColor(color1);
 		cslcolor(g,MIKA_key_black); /* 文字を黒で表示 */
 	}
-	cslputscale(g,x_pos0+MIKA_width_x,y_pos0+MIKA_width_y+ddy,ss,1.4); /* SHIFT の文字を表示 */
+	cslputscale(g,x_pos0+MIKA_width_x,y_pos0+MIKA_width_y+ddy,MIKA_shift_key,1.4); /* SHIFT の文字を表示 */
 }
 function dispshiftposit(g,shift_mode) /* 現在表示中のシフトキーと今回表示のシフトキーが異なる場合に表示を更新 */
 {
@@ -800,7 +797,7 @@ function dispguidechar(g,key_char,flag) /* ポジション練習で練習文字�
 {
 		var	color;
 		var x,y;
-		var scale=2.8;
+		var scale=2.4;
 		if(key_char!==0) /* 練習文字がゼロでない場合 */
 		{
 				x=2*MIKA_width_x-2; /* 表示位置 x座標算出 */
@@ -814,7 +811,7 @@ function dispguidechar(g,key_char,flag) /* ポジション練習で練習文字�
 					color=MIKA_bk_color; /* フラグが=1の時は表示を消去 */
 				}
 				cslcolor(g,color); /* 表示色を設定 */
-				cslputzscale(g,x,y,key_char,scale); /* 指定位置に 2.8倍の大きさで練習文字を表示 */
+				cslputzscale(g,x,y,key_char,scale); /* 指定位置に 2.4倍の大きさで練習文字を表示 */
 		}
 }
 function dipline(g,x,line1,line2,flag,shift_mode) /* キーボード一列表示*/
@@ -2042,6 +2039,11 @@ function proctrain(g,nChar) /* ランダム練習 の文字入力処理 */
 						{
 							MIKA_c_p1=0; /* 横座標をゼロに設定*/
 							MIKA_c_p2++; /* 縦座標をインクリメント */
+						}
+						if(MIKA_ttype_speed_time>MIKA_random_key_limit) /* 練習時間が制限時間を越した場合 */
+						{
+							MIKA_ttype_speed_time=MIKA_random_key_limit; /* 制限時間を練習時間に設定 */
+							MIKA_type_end_time=MIKA_type_start_time+MIKA_random_key_limit*1000.0; /* 終了時間を開始時間＋制限時間に設定 */
 						}
 						procdispspeed(g); /* 入力速度を表示 */
 						MIKA_type_time_record[MIKA_type_kind_no]=MIKA_type_time_record[MIKA_type_kind_no]+roundtime(MIKA_ttype_speed_time); /* 累積練習時間の記録を加算 */
